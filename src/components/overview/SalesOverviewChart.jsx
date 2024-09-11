@@ -8,7 +8,7 @@ import axios from 'axios';
 const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Los meses son 0-indexados
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
@@ -21,7 +21,7 @@ const SalesOverviewChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption/get-consumption-by-delta/?user_id=${id}&delta=day`);  // Usa el id de la URL
+        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption/get-consumption-by-delta/?user_id=${id}&delta=day`); 
         const data = response.data;
         
         const formattedData = data.map(item => ({
