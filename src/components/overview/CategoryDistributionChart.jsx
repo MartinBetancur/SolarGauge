@@ -10,16 +10,14 @@ const CategoryDistributionChart = () => {
   const [categoryData, setCategoryData] = useState([]);
   const { id } = useParams();
 
-  // Función para obtener los datos del API
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption/get-consumption-by-device/?user_id=${id}`);
         
-        // Mapear los datos para adaptarlos al formato esperado por el gráfico
         const formattedData = response.data.map(item => ({
           name: item.name,
-          value: parseFloat(item.total_consumption),  // Aseguramos que sea un número
+          value: parseFloat(item.total_consumption),  
         }));
         
         setCategoryData(formattedData);
@@ -41,7 +39,7 @@ const CategoryDistributionChart = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <h2 className='text-lg font-medium mb-4 text-gray-100'>Category Distribution</h2>
+      <h2 className='text-lg font-medium mb-4 text-gray-100'>Consumo total por dispositivo</h2>
       <div className='h-80'>
         <ResponsiveContainer width={"100%"} height={"100%"}>
           <PieChart>
