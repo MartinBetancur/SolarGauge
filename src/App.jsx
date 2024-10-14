@@ -22,7 +22,7 @@ function App() {
 
       <Sidebar />
       <Routes>
-        <Route path='/' element={<OverviewPage/>} />
+        <Route path='/:id' element={<OverviewPage/>} />
         <Route path='/available' element={<AvailablePage/>} />
         <Route path='/sales' element={<SalesPage/>} />
         <Route path='/orders' element={<OrdersPage/>} />
