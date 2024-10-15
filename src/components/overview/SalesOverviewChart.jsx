@@ -2,41 +2,39 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';  
-
+import axios from 'axios';
 
 const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
 
 const SalesOverviewChart = () => {
-  const [salesData, setSalesData] = useState([]);
+  const [salesData, setSalesData] = useState([]); // Initialize salesData as an empty array
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption/get-consumption-by-delta/?user_id=${id}&delta=day`); 
+        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption/get-consumption-by-delta/?user_id=${id}&delta=day`);
         const data = response.data;
-        
+
         const formattedData = data.map(item => ({
-          name: formatDate(item.delta),            
-          sales: item.consumption 
+          name: formatDate(item.delta),
+          sales: item.consumption
         }));
 
-        setSalesData(formattedData);
+        setSalesData(formattedData); // Update salesData after data is fetched
       } catch (error) {
         console.error("Error al obtener los datos: ", error);
       }
     };
 
-    fetchData();  
-  }, [id]);  
+    fetchData();
+  }, [id]);
 
   return (
     <motion.div
@@ -49,10 +47,14 @@ const SalesOverviewChart = () => {
 
       <div className='h-80'>
         <ResponsiveContainer width={"100%"} height={"100%"}>
-          <LineChart data={salesData}>  {/* Aquí se usa el estado con los datos obtenidos */}
+          <LineChart data={salesData}>  {/* Use salesData here after it's defined */}
             <CartesianGrid strokeDasharray='3 3' stroke='#4B5563' />
             <XAxis dataKey={"name"} stroke="#9ca3af" />
-            <YAxis stroke="#9ca3af" domain={[0, 1000]}/>
+            <YAxis
+              stroke="#9ca3af"
+              // Dynamically set y-axis domain based on maxSales
+              domain={[0, Math.max(...salesData.map(item => item.sales))]} // Use salesData here
+            />
             <Tooltip
               contentStyle={{
                 backgroundColor: "rgba(31, 41, 55, 0.8)",
@@ -72,7 +74,7 @@ const SalesOverviewChart = () => {
         </ResponsiveContainer>
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
 export default SalesOverviewChart;

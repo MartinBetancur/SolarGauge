@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { BarChart, BatteryCharging, Users, Zap } from 'lucide-react';
-
+import { BarChart, Zap } from 'lucide-react'; 
 import Header from '../components/common/Header';
 import StatCard from '../components/common/StatCard';
 import SalesOverviewChart from '../components/overview/SalesOverviewChart';
@@ -11,41 +10,69 @@ import SalesChannelChart from '../components/overview/SalesChannelChart';
 
 const ConsumptionPage = () => {
     const { id } = useParams(); // Obtiene user_id de la URL
-    const [totalConsumption, setTotalConsumption] = useState(null);
-    const [dailyAverageConsumption, setdailyAverageConsumption] = useState(null);
-    const [monthlyAverageConsumption, setmonthlyAverageConsumption] = useState(null);
+    const [isConsumption, setIsConsumption] = useState(true); // Estado para toggle entre consumo y producción
+    const [currentMonthData, setCurrentMonthData] = useState(null);
+    const [previousMonthData, setPreviousMonthData] = useState(null);
+    const [dailyAverageData, setDailyAverageData] = useState(null);
+    const [monthlyAverageData, setMonthlyAverageData] = useState(null);
 
+    // Función para alternar entre consumo y producción
+    const toggleConsumptionProduction = () => {
+        setIsConsumption(prevState => !prevState);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Obtener el consumo total del mes
-                const monthResponse = await fetch(`http://127.0.0.1:8000/api/v1/consumption/get-current-month-consumption/?user_id=${id}`);
-                const monthData = await monthResponse.json();
-                setTotalConsumption(monthData.total_month_consumption);
+                const today = new Date();
+                const currentMonth = today.getMonth() + 1; // Mes actual
+                const previousMonth = currentMonth === 1 ? 12 : currentMonth - 1; // Mes anterior
 
-                // Obtener el promedio de consumo diario
-                const dailyAverageResponse = await fetch(`http://127.0.0.1:8000/api/v1/consumption/get-average-delta-consumption/?user_id=${id}&delta=day`);
+                const type = isConsumption ? 'consumption' : 'production'; // Cambiar entre consumo y producción
+
+                // Obtener datos del mes actual
+                const currentMonthResponse = await fetch(`http://127.0.0.1:8000/api/v1/${type}/get-month-consumption/?month=${currentMonth}&user_id=${id}`);
+                const currentMonthData = await currentMonthResponse.json();
+                setCurrentMonthData(currentMonthData.total_month_consumption);
+
+                // Obtener datos del mes anterior
+                const previousMonthResponse = await fetch(`http://127.0.0.1:8000/api/v1/${type}/get-month-consumption/?month=${previousMonth}&user_id=${id}`);
+                const previousMonthData = await previousMonthResponse.json();
+                setPreviousMonthData(previousMonthData.total_month_consumption);
+
+                // Obtener el promedio diario
+                const dailyAverageResponse = await fetch(`http://127.0.0.1:8000/api/v1/${type}/get-average-delta-consumption/?user_id=${id}&delta=day`);
                 const dailyAverageData = await dailyAverageResponse.json();
-                setdailyAverageConsumption(dailyAverageData.average_consumption);
+                setDailyAverageData(dailyAverageData.average_consumption);
 
-                // Obtener el promedio de consumo mensual
-                const monthlyAverageResponse = await fetch(`http://127.0.0.1:8000/api/v1/consumption/get-average-delta-consumption/?user_id=${id}&delta=month`);
+                // Obtener el promedio mensual
+                const monthlyAverageResponse = await fetch(`http://127.0.0.1:8000/api/v1/${type}/get-average-delta-consumption/?user_id=${id}&delta=month`);
                 const monthlyAverageData = await monthlyAverageResponse.json();
-                setmonthlyAverageConsumption(monthlyAverageData.average_consumption);
+                setMonthlyAverageData(monthlyAverageData.average_consumption);
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
         fetchData();
-    }, [id]);
+    }, [id, isConsumption]); // El efecto se ejecuta cada vez que cambia el tipo de dato (consumo/producción)
 
     return (
         <div className='flex-1 overflow-auto relative z-10'>
-            <Header title="Dashboard de Consumo Energético" />
+            <Header title="Dashboard de Consumo y Producción Energética" />
 
             <main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
+                
+                {/* Toggle Button */}
+                <div className="flex justify-end mb-4">
+                    <button 
+                        onClick={toggleConsumptionProduction} 
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        {isConsumption ? 'Cambiar a Producción' : 'Cambiar a Consumo'}
+                    </button>
+                </div>
 
                 {/* STATS */}
                 <motion.div
@@ -54,28 +81,37 @@ const ConsumptionPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                 >
+                    {/* Tarjeta del mes actual */}
                     <StatCard
-                        name="Consumo total del mes actual"
+                        name={`${isConsumption ? 'Consumo' : 'Producción'} total del mes actual`}
                         icon={Zap}
-                        value={`${totalConsumption !== null ? parseFloat(totalConsumption).toFixed(2) : 'Loading...'} kWh`}
+                        value={`${currentMonthData !== null ? parseFloat(currentMonthData).toFixed(2) : 'Loading...'} kWh`}
                         color='#6366F1'
                     />
+                    {/* Tarjeta del mes anterior */}
                     <StatCard
-                        name="Consumo promedio diario"
+                        name={`${isConsumption ? 'Consumo' : 'Producción'} total del mes anterior`}
+                        icon={Zap}
+                        value={`${previousMonthData !== null ? parseFloat(previousMonthData).toFixed(2) : 'Loading...'} kWh`}
+                        color='#f59e0b'
+                    />
+                    {/* Promedio diario */}
+                    <StatCard
+                        name={`${isConsumption ? 'Consumo' : 'Producción'} promedio diario`}
                         icon={BarChart}
-                        value={`${dailyAverageConsumption !== null ? parseFloat(dailyAverageConsumption).toFixed(2) : 'Loading...'} kWh`}
+                        value={`${dailyAverageData !== null ? parseFloat(dailyAverageData).toFixed(2) : 'Loading...'} kWh`}
                         color='#10B981'
                     />
+                    {/* Promedio mensual */}
                     <StatCard
-                        name="Consumo promedio mensual"
+                        name={`${isConsumption ? 'Consumo' : 'Producción'} promedio mensual`}
                         icon={BarChart}
-                        value={`${monthlyAverageConsumption !== null ? parseFloat(monthlyAverageConsumption).toFixed(2) : 'Loading...'} kWh`}
+                        value={`${monthlyAverageData !== null ? parseFloat(monthlyAverageData).toFixed(2) : 'Loading...'} kWh`}
                         color='#10B981'
                     />
-                    {/* Agrega más tarjetas si es necesario */}
                 </motion.div>
 
-                {/* CHARTS */}
+                {/* GRÁFICOS */}
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
                     <SalesOverviewChart />
                     <CategoryDistributionChart />
