@@ -31,24 +31,24 @@ const ConsumptionPage = () => {
                 const type = isConsumption ? 'consumption' : 'production'; // Cambiar entre consumo y producción
 
                 // Obtener datos del mes actual
-                const currentMonthResponse = await fetch(`http://127.0.0.1:8000/api/v1/${type}/get-month-consumption/?month=${currentMonth}&user_id=${id}`);
+                const currentMonthResponse = await fetch(`http://127.0.0.1:8000/api/v1/consumption_generation/get-month-value/?month=${currentMonth}&user_id=${id}&value_type=${type}`);
                 const currentMonthData = await currentMonthResponse.json();
-                setCurrentMonthData(currentMonthData.total_month_consumption);
+                setCurrentMonthData(currentMonthData.total_month_value);
 
                 // Obtener datos del mes anterior
-                const previousMonthResponse = await fetch(`http://127.0.0.1:8000/api/v1/${type}/get-month-consumption/?month=${previousMonth}&user_id=${id}`);
+                const previousMonthResponse = await fetch(`http://127.0.0.1:8000/api/v1/consumption_generation/get-month-value/?month=${previousMonth}&user_id=${id}&value_type=${type}`);
                 const previousMonthData = await previousMonthResponse.json();
-                setPreviousMonthData(previousMonthData.total_month_consumption);
+                setPreviousMonthData(previousMonthData.total_month_value);
 
                 // Obtener el promedio diario
-                const dailyAverageResponse = await fetch(`http://127.0.0.1:8000/api/v1/${type}/get-average-delta-consumption/?user_id=${id}&delta=day`);
+                const dailyAverageResponse = await fetch(`http://127.0.0.1:8000/api/v1/consumption_generation/get-average-delta-value/?user_id=${id}&delta=day&value_type=${type}`);
                 const dailyAverageData = await dailyAverageResponse.json();
-                setDailyAverageData(dailyAverageData.average_consumption);
+                setDailyAverageData(dailyAverageData.average_value);
 
                 // Obtener el promedio mensual
-                const monthlyAverageResponse = await fetch(`http://127.0.0.1:8000/api/v1/${type}/get-average-delta-consumption/?user_id=${id}&delta=month`);
+                const monthlyAverageResponse = await fetch(`http://127.0.0.1:8000/api/v1/consumption_generation/get-average-delta-value/?user_id=${id}&delta=month&value_type=${type}`);
                 const monthlyAverageData = await monthlyAverageResponse.json();
-                setMonthlyAverageData(monthlyAverageData.average_consumption);
+                setMonthlyAverageData(monthlyAverageData.average_value);
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -113,9 +113,9 @@ const ConsumptionPage = () => {
 
                 {/* GRÁFICOS */}
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                    <SalesOverviewChart />
-                    <CategoryDistributionChart />
-                    <SalesChannelChart />
+                    <SalesOverviewChart isConsumption={isConsumption}/>
+                    <CategoryDistributionChart isConsumption={isConsumption}/>
+                    <SalesChannelChart isConsumption={isConsumption}/>
                 </div>
             </main>
         </div>

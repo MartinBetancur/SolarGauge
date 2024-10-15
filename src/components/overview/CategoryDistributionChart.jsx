@@ -6,18 +6,21 @@ import axios from 'axios'  // Usaremos axios para la llamada al API
 
 const COLORS = ["#6366F1", "#8B5CF6", "#EC4899", "#10B981", "#F59E0B"];
 
-const CategoryDistributionChart = () => {
+const CategoryDistributionChart = ({isConsumption}) => {
+
   const [categoryData, setCategoryData] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption/get-consumption-by-device/?user_id=${id}`);
+        const type = isConsumption ? 'consumption' : 'generation'; // Usar el tipo según el estado
+
+        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption_generation/get-value-by-device/?user_id=${id}&value_type=${type}`);
         
         const formattedData = response.data.map(item => ({
           name: item.name,
-          value: parseFloat(item.total_consumption),  
+          value: parseFloat(item.total_value),  
         }));
         
         setCategoryData(formattedData);
@@ -30,7 +33,7 @@ const CategoryDistributionChart = () => {
       fetchData();
     }
 
-  }, [id]);
+  }, [id, isConsumption]);
 
   return (
     <motion.div

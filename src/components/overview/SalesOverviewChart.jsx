@@ -12,29 +12,31 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year}`;
 };
 
-const SalesOverviewChart = () => {
-  const [salesData, setSalesData] = useState([]); // Initialize salesData as an empty array
+const SalesOverviewChart = ({ isConsumption }) => {
+  const [salesData, setSalesData] = useState([]); 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption/get-consumption-by-delta/?user_id=${id}&delta=day`);
+        const type = isConsumption ? 'consumption' : 'generation'; // Cambia entre consumo y generación
+
+        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption_generation/get-value-by-delta/?user_id=${id}&delta=day&value_type=${type}`);
         const data = response.data;
 
         const formattedData = data.map(item => ({
           name: formatDate(item.delta),
-          sales: item.consumption
+          sales: item.value  // Asegúrate de que aquí usas el campo correcto, puede ser "value" o "consumption"
         }));
 
-        setSalesData(formattedData); // Update salesData after data is fetched
+        setSalesData(formattedData); 
       } catch (error) {
         console.error("Error al obtener los datos: ", error);
       }
     };
 
     fetchData();
-  }, [id]);
+  }, [id, isConsumption]);  // Agregamos isConsumption como dependencia para actualizar cuando cambie
 
   return (
     <motion.div
@@ -43,17 +45,18 @@ const SalesOverviewChart = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <h2 className='text-lg font-medium mb-4 text-gray-100'>Consumo energético en el tiempo</h2>
+      <h2 className='text-lg font-medium mb-4 text-gray-100'>
+        {isConsumption ? 'Consumo' : 'Producción'} energético en el tiempo
+      </h2>
 
       <div className='h-80'>
         <ResponsiveContainer width={"100%"} height={"100%"}>
-          <LineChart data={salesData}>  {/* Use salesData here after it's defined */}
+          <LineChart data={salesData}>
             <CartesianGrid strokeDasharray='3 3' stroke='#4B5563' />
             <XAxis dataKey={"name"} stroke="#9ca3af" />
             <YAxis
               stroke="#9ca3af"
-              // Dynamically set y-axis domain based on maxSales
-              domain={[0, Math.max(...salesData.map(item => item.sales))]} // Use salesData here
+              domain={[0, Math.max(...salesData.map(item => item.sales))]} 
             />
             <Tooltip
               contentStyle={{
