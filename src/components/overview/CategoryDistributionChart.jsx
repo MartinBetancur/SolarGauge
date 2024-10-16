@@ -42,7 +42,7 @@ const CategoryDistributionChart = ({isConsumption}) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <h2 className='text-lg font-medium mb-4 text-gray-100'>Consumo total por dispositivo</h2>
+      <h2 className='text-lg font-medium mb-4 text-gray-100'>{isConsumption ? 'Consumo' : 'Producción'} total por dispositivo</h2>
       <div className='h-80'>
         <ResponsiveContainer width={"100%"} height={"100%"}>
           <PieChart>
