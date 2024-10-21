@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
+    const [username, setUsername] = useState(''); // Nuevo estado para el nombre de usuario
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -16,12 +17,13 @@ const RegisterPage = () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/v1/auth/register/', {
+            const response = await fetch('http://127.0.0.1:8001/api/v1/auth/register/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'accept': 'application/json', // Asegúrate de incluir el encabezado de aceptación
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ username, email, password }), // Incluye el username
             });
 
             const data = await response.json();
@@ -43,6 +45,16 @@ const RegisterPage = () => {
                 <h2 className="text-center text-2xl font-bold text-gray-700">Regístrate</h2>
                 {error && <p className="text-red-500 text-center">{error}</p>}
                 <form onSubmit={handleRegister} className="space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+                        <input
+                            type="text"
+                            required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        />
+                    </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Email</label>
                         <input
