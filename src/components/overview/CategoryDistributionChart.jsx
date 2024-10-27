@@ -10,13 +10,14 @@ const CategoryDistributionChart = ({isConsumption}) => {
 
   const [categoryData, setCategoryData] = useState([]);
   const { id } = useParams();
+  const apiUrl = import.meta.env.VITE_CONSUMPTION_GENERATION_SERVICE_URI;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const type = isConsumption ? 'consumption' : 'generation'; // Usar el tipo según el estado
 
-        const response = await axios.get(`http://127.0.0.1:8000/api/v1/consumption_generation/get-value-by-device/?user_id=${id}&value_type=${type}`);
+        const response = await axios.get(`${apiUrl}/api/v1/consumption_generation/get-value-by-device/?user_id=${id}&value_type=${type}`);
         
         const formattedData = response.data.map(item => ({
           name: item.name,

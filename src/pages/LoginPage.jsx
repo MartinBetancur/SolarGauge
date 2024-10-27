@@ -6,11 +6,12 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-
+    const apiUrl = import.meta.env.VITE_AUTHENTICATION_SERVICE_URI;
+    
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8001/api/v1/auth/login/', {
+            const response = await fetch(`${apiUrl}/api/v1/auth/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

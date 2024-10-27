@@ -17,7 +17,7 @@ const RegisterPage = () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:8001/api/v1/auth/register/', {
+            const response = await fetch('https://solargauge-auth-service-325305452074.us-central1.run.app/api/v1/auth/register/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
