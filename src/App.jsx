@@ -27,7 +27,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 
 // Layout para el Dashboard que incluye Sidebar y Outlet
-const DashboardLayout = () => (
+const DashboardLayout = ({ userId }) => (
   <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
     {/* Fondo */}
     <div className="fixed inset-0 z-0">
@@ -36,7 +36,7 @@ const DashboardLayout = () => (
     </div>
 
     {/* Sidebar */}
-    <Sidebar />
+    <Sidebar userId={userId} />
 
     {/* Contenido principal del Dashboard */}
     <div className="relative z-10 flex-1 p-6 overflow-y-auto">
@@ -48,9 +48,11 @@ const DashboardLayout = () => (
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userId, setUserId] = useState(null); // Estado para almacenar el ID del usuario
 
-  const handleLogin = () => {
+  const handleLogin = (id) => {
     setIsAuthenticated(true);
+    setUserId(id); // Guardamos el ID del usuario al iniciar sesión
   };
 
   return (
@@ -79,14 +81,14 @@ function App() {
 
       {/* Rutas del Dashboard (protegidas) */}
       {isAuthenticated ? (
-        <Route element={<DashboardLayout />}>
-          <Route path="/overview" element={<OverviewPage />} />
-          <Route path="/available" element={<AvailablePage />} />
-          <Route path="/sales" element={<SalesPage />} />
-          <Route path="/orders" element={<OrdersPage />} />
-          <Route path="/analytics" element={<AnalyticsPage />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+        <Route element={<DashboardLayout userId={userId} />}>
+          <Route path="/overview" element={<OverviewPage userId={userId} />} />
+          <Route path="/available" element={<AvailablePage userId={userId} />} />
+          <Route path="/sales" element={<SalesPage userId={userId} />} />
+          <Route path="/orders" element={<OrdersPage userId={userId} />} />
+          <Route path="/analytics" element={<AnalyticsPage userId={userId} />} />
+          <Route path="/users" element={<UsersPage userId={userId} />} />
+          <Route path="/settings" element={<SettingsPage userId={userId} />} />
           {/* Redirección por defecto al /overview si la ruta no coincide */}
           <Route path="*" element={<Navigate to="/overview" />} />
         </Route>
