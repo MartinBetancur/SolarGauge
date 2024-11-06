@@ -1,9 +1,5 @@
-// src/App.jsx
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom"; // Importa Navigate para redirección
 import { useState } from "react";
-
-// Importa los componentes necesarios de react-router-dom
-import { Outlet } from "react-router-dom"; // Asegúrate de importar Outlet
 
 // Importa los componentes de la Landing Page
 import Navbar from "./landing-page/Navbar";
@@ -17,7 +13,6 @@ import Footer from "./landing-page/Footer";
 // Importa los componentes del Dashboard
 import AvailablePage from "./pages/AvailablePage";
 import OverviewPage from "./pages/OverviewPage";
-import Sidebar from "./components/Sidebar";
 import UsersPage from "./pages/UsersPage";
 import SalesPage from "./pages/SalesPage";
 import OrdersPage from "./pages/OrdersPage";
@@ -26,25 +21,8 @@ import SettingsPage from "./pages/SettingsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 
-// Layout para el Dashboard que incluye Sidebar y Outlet
-const DashboardLayout = ({ userId }) => (
-  <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
-    {/* Fondo */}
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-80" />
-      <div className="absolute inset-0 backdrop-blur-sm" />
-    </div>
-
-    {/* Sidebar */}
-    <Sidebar userId={userId} />
-
-    {/* Contenido principal del Dashboard */}
-    <div className="relative z-10 flex-1 p-6 overflow-y-auto">
-      {/* Aquí se renderizarán las rutas hijas */}
-      <Outlet />
-    </div>
-  </div>
-);
+// Importa la Sidebar
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -81,17 +59,38 @@ function App() {
 
       {/* Rutas del Dashboard (protegidas) */}
       {isAuthenticated ? (
-        <Route element={<DashboardLayout userId={userId} />}>
-          <Route path="/overview" element={<OverviewPage userId={userId} />} />
-          <Route path="/available" element={<AvailablePage userId={userId} />} />
-          <Route path="/sales" element={<SalesPage userId={userId} />} />
-          <Route path="/orders" element={<OrdersPage userId={userId} />} />
-          <Route path="/analytics" element={<AnalyticsPage userId={userId} />} />
-          <Route path="/users" element={<UsersPage userId={userId} />} />
-          <Route path="/settings" element={<SettingsPage userId={userId} />} />
-          {/* Redirección por defecto al /overview si la ruta no coincide */}
-          <Route path="*" element={<Navigate to="/overview" />} />
-        </Route>
+        <Route
+          path="*"
+          element={
+            <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
+              {/* Fondo */}
+              <div className="fixed inset-0 z-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-80" />
+                <div className="absolute inset-0 backdrop-blur-sm" />
+              </div>
+
+              {/* Sidebar */}
+              <Sidebar userId={userId} />
+
+              {/* Contenido principal del Dashboard */}
+              <div className="relative z-10 flex-1 p-6 overflow-y-auto">
+                <Routes>
+                  {/* Rutas del Dashboard */}
+                  <Route path="/:id" element={<OverviewPage userId={userId} />} />
+                  <Route path="/available" element={<AvailablePage userId={userId} />} />
+                  <Route path="/sales" element={<SalesPage userId={userId} />} />
+                  <Route path="/orders" element={<OrdersPage userId={userId} />} />
+                  <Route path="/analytics" element={<AnalyticsPage userId={userId} />} />
+                  <Route path="/users" element={<UsersPage userId={userId} />} />
+                  <Route path="/settings" element={<SettingsPage userId={userId} />} />
+
+                  {/* Redirección por defecto al /overview si la ruta no coincide */}
+                  <Route path="*" element={<Navigate to="/overview" />} />
+                </Routes>
+              </div>
+            </div>
+          }
+        />
       ) : (
         <Route path="*" element={<Navigate to="/login" />} />
       )}
