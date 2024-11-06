@@ -5,7 +5,6 @@ import Header from "../components/common/Header";
 import StatCard from "../components/common/StatCard";
 import SalesTrendChart from "../components/products/SalesTrendChart";
 import PredictionGenerationChart from "../components/products/PredictionGenerationChart";
-import CategoryDistributionChart from "../components/overview/CategoryDistributionChart";
 
 const AvailablePage = () => {
   return (

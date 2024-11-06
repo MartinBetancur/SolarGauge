@@ -5,21 +5,20 @@ const HeroSection = () => {
   return (
     <div className="flex flex-col items-center mt-6 lg:mt-20">
       <h1 className="text-4xl sm:text-6xl lg:text-7xl text-center tracking-wide">
-        Transform your energy data into
-        <span className="bg-gradient-to-r from-[#00ffba] to-[#00ffba60] text-transparent bg-clip-text">
-          {" "}
-          REAL SAVINGS
+        Convierte tus datos de energía en
+        <span className="bg-gradient-to-r from-[#6366f1] to-[#6366f160] text-transparent bg-clip-text">
+          {" "}AHORROS REALES
         </span>
       </h1>
       <p className="mt-10 text-lg text-center text-neutral-500 max-w-4xl">
-      Real-time tracking of your energy consumption by the hour, empowering businesses to make informed decisions and optimize their energy usage efficiently.
+        Seguimiento en tiempo real de tu consumo de energía por hora, permitiendo a las empresas tomar decisiones informadas y optimizar su uso de energía de manera eficiente.
       </p>
       <div className="flex justify-center my-10">
         <a
           href="#"
-          className="bg-gradient-to-r from-[#00ffba] to-[#00ffba60] py-3 px-4 mx-3 rounded-md"
+          className="bg-gradient-to-r from-[#6366f1] to-[#6366f160] py-3 px-4 mx-3 rounded-md"
         >
-          Start for free
+          Comienza gratis
         </a>
       </div>
       <div className="flex mt-10 justify-center">
@@ -27,19 +26,19 @@ const HeroSection = () => {
           autoPlay
           loop
           muted
-          className="rounded-lg w-1/2 border border-[#00ffba] shadow-sm shadow-[#00ffba80]-400 mx-2 my-4"
+          className="rounded-lg w-1/2 border border-[#6366f1] shadow-sm shadow-[#6366f180]-400 mx-2 my-4"
         >
           <source src={video1} type="video/mp4" />
-          Your browser does not support the video tag.
+          Tu navegador no soporta la etiqueta de video.
         </video>
         <video
           autoPlay
           loop
           muted
-          className="rounded-lg w-1/2 border border-[#00ffba] shadow-sm shadow-[#00ffba80]-400 mx-2 my-4"
+          className="rounded-lg w-1/2 border border-[#6366f1] shadow-sm shadow-[#6366f180]-400 mx-2 my-4"
         >
           <source src={video2} type="video/mp4" />
-          Your browser does not support the video tag.
+          Tu navegador no soporta la etiqueta de video.
         </video>
       </div>
     </div>

@@ -4,13 +4,13 @@ const FeatureSection = () => {
   return (
     <div className="relative mt-20 border-b border-neutral-800 min-h-[800px]">
       <div className="text-center">
-        <span className="bg-neutral-900 text-[#00ffba] rounded-full h-6 text-sm font-medium px-2 py-1 uppercase">
-          Benefits
+        <span className="bg-neutral-900 text-[#6366f1] rounded-full h-6 text-sm font-medium px-2 py-1 uppercase">
+          Beneficios
         </span>
         <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-10 lg:mt-20 tracking-wide">
-          Optimize{" "}
-          <span className="bg-gradient-to-r from-[#00ffba] to-[#00ffba60] text-transparent bg-clip-text">
-            Energy Usage
+          Optimiza el{" "}
+          <span className="bg-gradient-to-r from-[#6366f1] to-[#6366f160] text-transparent bg-clip-text">
+            Uso de Energía
           </span>
         </h2>
       </div>
@@ -18,7 +18,7 @@ const FeatureSection = () => {
         {features.map((feature, index) => (
           <div key={index} className="w-full sm:w-1/2 lg:w-1/3">
             <div className="flex">
-              <div className="flex mx-6 h-10 w-10 p-2 bg-neutral-900 text-[#00ffba] justify-center items-center rounded-full">
+              <div className="flex mx-6 h-10 w-10 p-2 bg-neutral-900 text-[#6366f1] justify-center items-center rounded-full">
                 {feature.icon}
               </div>
               <div>

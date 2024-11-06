@@ -6,9 +6,9 @@ const Workflow = () => {
   return (
     <div className="mt-20">
       <h2 className="text-3xl sm:text-5xl lg:text-6xl text-center mt-6 tracking-wide">
-        Empower Your Home with{" "}
-        <span className="bg-gradient-to-r from-[#00ffba] to-[#00ffba70] text-transparent bg-clip-text">
-          Intelligent Solar Energy Insights.
+        Potencia tu hogar con{" "}
+        <span className="bg-gradient-to-r from-[#6366f1] to-[#6366f170] text-transparent bg-clip-text">
+          Perspectivas Inteligentes de Energía Solar.
         </span>
       </h2>
       <div className="flex flex-wrap justify-center">
