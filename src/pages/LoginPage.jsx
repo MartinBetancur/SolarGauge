@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPage = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -22,8 +22,9 @@ const LoginPage = () => {
             const data = await response.json();
     
             if (response.ok) {
-                localStorage.setItem('token', data.access_token); // Cambiado a access_token
-                navigate(`/${data.user_id}`); // Redireccionar a /id
+                localStorage.setItem('token', data.access_token); // Guardar token
+                onLogin();  // Actualizar estado global de autenticación
+                navigate(`/${data.user_id}`); // Redirigir al dashboard
             } else {
                 setError(data.message || 'Error en el inicio de sesión');
             }
@@ -31,17 +32,14 @@ const LoginPage = () => {
             setError('Error en el servidor, intenta más tarde.');
         }
     };
-    
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900 relative overflow-hidden">
-            {/* Fondo degradado y blur similar al layout principal */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-80"/>
                 <div className="absolute inset-0 backdrop-blur-sm"/>
             </div>
 
-            {/* Contenedor del formulario */}
             <div className="relative z-10 w-full max-w-lg p-8 space-y-6 bg-gray-800 bg-opacity-80 rounded-xl shadow-md">
                 <h2 className="text-3xl font-semibold text-center text-gray-100">Iniciar Sesión</h2>
                 {error && <p className="text-red-500 text-center">{error}</p>}
@@ -49,7 +47,7 @@ const LoginPage = () => {
                     <div>
                         <label className="block text-sm font-medium text-gray-300">Username</label>
                         <input
-                            type="text" // Cambiar de "username" a "text"
+                            type="text"
                             required
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
