@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Zap, Users, BatteryCharging, BarChart, AlignVerticalDistributeStart } from "lucide-react";
+import { useUser } from "../UserContext";
 
 import Header from "../components/common/Header";
 import StatCard from "../components/common/StatCard";
 import SalesTrendChart from "../components/products/SalesTrendChart";
 import SalesTrendChart2 from "../components/products/SalesTrendChart2";
 
-import { useUser } from '../UserContext';
-
 const AvailablePage = () => {
   const [energyData, setEnergyData] = useState(null);
   const [energyData2, setEnergyData2] = useState(null);
   const apiUrl = import.meta.env.VITE_PREDICTIVE_MODEL_URI;
+  const { userId } = useUser();
+
+  
 
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
-    const { userId } = useUser();
     return `${year}-${month}-${day}`;
   };
 

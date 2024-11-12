@@ -19,6 +19,7 @@ const EnergyPredictionChart = ({ className }) => {
   const fetchEnergyData = async () => {
     const currentDate = getCurrentDate(); // Obtiene la fecha actual
     try {
+      console.log("peticion salestrendchart2")
       const response = await fetch(`${apiUrl}/predict_consumption/${userId}/${currentDate}/2`, {
         method: "POST",
         headers: {
