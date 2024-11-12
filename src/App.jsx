@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom"; // Importa Navigate para redirección
 import { useState } from "react";
+import { UserProvider } from "./UserContext";
 
 // Importa los componentes de la Landing Page
 import Navbar from "./landing-page/Navbar";
@@ -34,6 +35,7 @@ function App() {
   };
 
   return (
+    <UserProvider>
     <Routes>
       {/* Ruta para la Landing Page */}
       <Route
@@ -78,7 +80,7 @@ function App() {
                   {/* Rutas del Dashboard */}
                   <Route path="/:id" element={<OverviewPage userId={userId} />} />
                   <Route path="/available" element={<AvailablePage userId={userId} />} />
-                  <Route path="/sales" element={<SalesPage userId={userId} />} />
+                  <Route path="/sales/:id" element={<SalesPage userId={userId} />} />
                   <Route path="/orders" element={<OrdersPage userId={userId} />} />
                   <Route path="/analytics" element={<AnalyticsPage userId={userId} />} />
                   <Route path="/users" element={<UsersPage userId={userId} />} />
@@ -95,6 +97,7 @@ function App() {
         <Route path="*" element={<Navigate to="/login" />} />
       )}
     </Routes>
+    </UserProvider>
   );
 }
 

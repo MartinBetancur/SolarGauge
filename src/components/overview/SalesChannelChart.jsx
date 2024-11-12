@@ -45,7 +45,7 @@ const SalesChannelChart = ({ type, isConsumption }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <h2 className='text-lg font-medium mb-4 text-gray-100'>Generación o Consumo</h2>
+      <h2 className='text-lg font-medium mb-4 text-gray-100'>{isConsumption ? "Consumo" : "Producción"}</h2>
 
       <div className='h-80'>
         <ResponsiveContainer>
@@ -63,7 +63,6 @@ const SalesChannelChart = ({ type, isConsumption }) => {
               itemStyle={{ color: "#E5E7EB" }}
             />
             
-            {/* Línea de promedio */}
             <ReferenceLine 
             y={parseFloat(averageValue)} 
             stroke="#F59E0B" 
@@ -71,7 +70,6 @@ const SalesChannelChart = ({ type, isConsumption }) => {
             label={{ value: `Promedio: ${averageValue}`, position: 'top', fill: '#F59E0B' }} 
             />
 
-            {/* Gráfico de dispersión */}
             <Scatter name="Generación/Consumo" data={data} fill="#8884d8" />
           </ScatterChart>
         </ResponsiveContainer>

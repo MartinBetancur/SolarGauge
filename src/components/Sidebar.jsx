@@ -2,34 +2,37 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BarChart, Settings, TrendingUp, Users, Zap, Menu, BarChart2, ShoppingCart } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useUser } from '../UserContext';
 
-const SIDEBAR_ITEMS = [
-    {
-        name:"Dashboard", icon:BarChart2, color:"#6366f1", href:"/"
-    },
-    {
-        name:"Modelo Predictivo", icon:Zap, color:"#6366f1", href:"/available"
-    },
-    {
-        name:"Mercado Energético", icon:TrendingUp, color:"#FF9800", href:"/sales"
-    },
-	{
-        name:"Energy Orders", icon:ShoppingCart, color:"#FF7289", href:"/orders"
-    },
-    {
-        name:"Market Analysis", icon:BarChart, color:"#673AB7", href:"/analytics" 
-    },
-    {
-        name:"Users", icon:Users, color:"#EC4899", href:"/users"
-    },
-    {
-        name:"Settings", icon:Settings, color:"#9E9E9E", href:"/settings" 
-    },
 
-]
 
 const Sidebar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
+	const { userId } = useUser();
+	const SIDEBAR_ITEMS = [
+		{
+			name:"Dashboard", icon:BarChart2, color:"#6366f1", href:`/${userId}`
+		},
+		{
+			name:"Modelo Predictivo", icon:Zap, color:"#6366f1", href:"/available"
+		},
+		{
+			name:"Mercado Energético", icon:TrendingUp, color:"#FF9800", href: `/sales/${userId}`
+		},
+		{
+			name:"Energy Orders", icon:ShoppingCart, color:"#FF7289", href:"/orders"
+		},
+		{
+			name:"Market Analysis", icon:BarChart, color:"#673AB7", href:"/analytics" 
+		},
+		{
+			name:"Users", icon:Users, color:"#EC4899", href:"/users"
+		},
+		{
+			name:"Settings", icon:Settings, color:"#9E9E9E", href:"/settings" 
+		},
+	
+	]
 
   return (
         <motion.div

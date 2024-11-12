@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../UserContext';
 
 const LoginPage = ({ onLogin }) => {
     const [username, setUsername] = useState('');
@@ -7,6 +8,7 @@ const LoginPage = ({ onLogin }) => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const apiUrl = import.meta.env.VITE_AUTHENTICATION_SERVICE_URI;
+    const { setUserId } = useUser();
     
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -24,6 +26,7 @@ const LoginPage = ({ onLogin }) => {
             if (response.ok) {
                 localStorage.setItem('token', data.access_token); // Guardar token
                 onLogin();  // Actualizar estado global de autenticación
+                setUserId(data.user_id);
                 navigate(`/${data.user_id}`); // Redirigir al dashboard
             } else {
                 setError(data.message || 'Error en el inicio de sesión');
