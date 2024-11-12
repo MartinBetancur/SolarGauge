@@ -9,9 +9,8 @@ const OfferList = ({ apiUrl, userId, onSelectOffer }) => {
     useEffect(() => {
         const fetchOffers = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/api/v1/offers/offers`, {
-                    params: { user_id: userId },
-                });
+                const response = await axios.get(`${apiUrl}/api/v1/offers/offers`);
+				console.log(`${apiUrl}/api/v1/offers/offers`)
                 setOffers(response.data);
             } catch (error) {
                 console.error("Error fetching offers:", error);
