@@ -17,7 +17,7 @@ const EnergyPredictionChart = ({ className }) => {
   const fetchEnergyData = async () => {
     const currentDate = getCurrentDate(); // Obtiene la fecha actual
     try {
-      const response = await fetch(`http://127.0.0.1:8000/predict_consumption/20815639-1010-4ec8-bd2f-6b33aa3cd1ea/${currentDate}/1`, {
+      const response = await fetch(`http://127.0.0.1:8000/predict_consumption/20815639-1010-4ec8-bd2f-6b33aa3cd1ea/${currentDate}/2`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -28,7 +28,6 @@ const EnergyPredictionChart = ({ className }) => {
       if (!response.ok) throw new Error("Error al obtener datos de la API");
 
       const data = await response.json();
-      console.log(data); // Imprime la respuesta completa en la consola
       setEnergyData(data); // Guarda la respuesta en el estado
     } catch (error) {
       console.error("Error de conexión:", error);
@@ -46,8 +45,8 @@ const EnergyPredictionChart = ({ className }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
     >
-      <h2 className='text-xl font-semibold text-gray-100 mb-2'>Predicción de Consumo Energética</h2>
-      <p className='text-gray-400 mb-4'>Consumo estimado en kWh por día</p>
+      <h2 className='text-xl font-semibold text-gray-100 mb-2'>Predicción de Generación Energética</h2>
+      <p className='text-gray-400 mb-4'>Generación estimada en kWh por día</p>
       
       <div style={{ width: "100%", height: 300 }}>
         <ResponsiveContainer>
