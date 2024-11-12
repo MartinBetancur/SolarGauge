@@ -7,22 +7,26 @@ import StatCard from "../components/common/StatCard";
 import SalesTrendChart from "../components/products/SalesTrendChart";
 import SalesTrendChart2 from "../components/products/SalesTrendChart2";
 
+import { useUser } from '../UserContext';
+
 const AvailablePage = () => {
   const [energyData, setEnergyData] = useState(null);
   const [energyData2, setEnergyData2] = useState(null);
+  const apiUrl = import.meta.env.VITE_PREDICTIVE_MODEL_URI;
 
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
+    const { userId } = useUser();
     return `${year}-${month}-${day}`;
   };
 
   const fetchEnergyData = async () => {
     const currentDate = getCurrentDate();
     try {
-      const response = await fetch(`http://127.0.0.1:8000/predict_consumption/20815639-1010-4ec8-bd2f-6b33aa3cd1ea/${currentDate}/1`, {
+      const response = await fetch(`${apiUrl}/predict_consumption/${userId}/${currentDate}/1`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -42,7 +46,7 @@ const AvailablePage = () => {
   const fetchEnergyData2 = async () => {
     const currentDate = getCurrentDate();
     try {
-      const response = await fetch(`http://127.0.0.1:8000/predict_consumption/20815639-1010-4ec8-bd2f-6b33aa3cd1ea/${currentDate}/2`, {
+      const response = await fetch(`${apiUrl}/predict_consumption/${userId}/${currentDate}/2`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

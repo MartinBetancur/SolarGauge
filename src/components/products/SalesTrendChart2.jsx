@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { useUser } from "../../UserContext";
 
 const EnergyPredictionChart = ({ className }) => {
   const [energyData, setEnergyData] = useState(null);
+  const { userId } = useUser();
 
   // Función para obtener la fecha actual en formato YYYY-MM-DD
   const getCurrentDate = () => {
@@ -17,7 +19,7 @@ const EnergyPredictionChart = ({ className }) => {
   const fetchEnergyData = async () => {
     const currentDate = getCurrentDate(); // Obtiene la fecha actual
     try {
-      const response = await fetch(`http://127.0.0.1:8000/predict_consumption/20815639-1010-4ec8-bd2f-6b33aa3cd1ea/${currentDate}/2`, {
+      const response = await fetch(`${apiUrl}/predict_consumption/${userId}/${currentDate}/2`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
