@@ -5,6 +5,7 @@ import { useUser } from "../../UserContext";
 
 const EnergyPredictionChart = ({ className }) => {
   const [energyData, setEnergyData] = useState(null);
+  const apiUrl = import.meta.env.VITE_PREDICTIVE_MODEL_URI;
   const { userId } = useUser();
 
   // Función para obtener la fecha actual en formato YYYY-MM-DD
