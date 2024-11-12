@@ -12,16 +12,15 @@ const EnergyPredictionChart = ({ className }) => {
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Mes en formato 2 dígitos
-    const day = String(today.getDate()).padStart(2, '0'); // Día en formato 2 dígitos
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
-    
   };
 
   const fetchEnergyData = async () => {
-    const currentDate = getCurrentDate(); // Obtiene la fecha actual
+    const currentDate = getCurrentDate();
     try {
-      console.log("peticion salestrendchart1")
+      console.log("peticion salestrendchart1");
       const response = await fetch(`${apiUrl}/predict_consumption/${userId}/${currentDate}/1`, {
         method: "POST",
         headers: {
@@ -33,8 +32,8 @@ const EnergyPredictionChart = ({ className }) => {
       if (!response.ok) throw new Error("Error al obtener datos de la API");
 
       const data = await response.json();
-      console.log(data); // Imprime la respuesta completa en la consola
-      setEnergyData(data); // Guarda la respuesta en el estado
+      console.log(data);
+      setEnergyData(data);
     } catch (error) {
       console.error("Error de conexión:", error);
     }
@@ -78,7 +77,15 @@ const EnergyPredictionChart = ({ className }) => {
             />
             <Legend />
             
-            <Line type='monotone' dataKey='energy' stroke='#3B82F6' strokeWidth={2} />
+            <Line
+              type='monotone'
+              dataKey='energy'
+              stroke='#2563EB' // Cambia el color a azul
+              strokeWidth={3} // Aumenta el grosor de la línea
+              dot={{ fill: '#2563EB', r: 4 }} // Añade puntos en cada dato
+              activeDot={{ r: 6 }} // Tamaño del punto activo al pasar el cursor
+              animationDuration={600} // Duración de la animación
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>
