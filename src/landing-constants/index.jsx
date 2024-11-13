@@ -18,143 +18,143 @@ export const testimonials = [
     user: "John Doe",
     company: "Stellar Solutions",
     image: user1,
-    text: "I am extremely satisfied with the services provided. This software transformed how I manage my energy usage.",
+    text: "Estoy extremadamente satisfecho con los servicios proporcionados. Este software transformó la forma en que gestiono mi consumo de energía.",
   },
   {
     user: "Jane Smith",
     company: "Blue Horizon Technologies",
     image: user2,
-    text: "I couldn't be happier with the outcome of our project. A must-have tool for energy efficiency.",
+    text: "No podría estar más feliz con el resultado de nuestro proyecto. Una herramienta imprescindible para la eficiencia energética.",
   },
   {
     user: "David Johnson",
     company: "Quantum Innovations",
     image: user3,
-    text: "Working with this software was a pleasure. Incredible insights and easy to use.",
+    text: "Trabajar con este software fue un placer. Ideas increíbles y fácil de usar.",
   },
   {
     user: "Ronee Brown",
     company: "Fusion Dynamics",
     image: user4,
-    text: "Solar-Gauge helped me save on energy costs significantly. After using their platform, I was able to monitor my energy consumption in real-time and identify areas where I could reduce waste.",
+    text: "Solar-Gauge me ayudó a ahorrar significativamente en costos de energía. Después de usar su plataforma, pude monitorear mi consumo de energía en tiempo real e identificar áreas donde podía reducir el desperdicio.",
   },
   {
     user: "Michael Wilson",
     company: "Visionary Creations",
     image: user5,
-    text: "SolarGauge has helped me save significantly on my energy costs. With its detailed tracking and insights, I can monitor my usage patterns, optimize my consumption, and even sell excess energy to others.",
+    text: "SolarGauge me ha ayudado a ahorrar significativamente en mis costos de energía. Con su seguimiento detallado y análisis, puedo monitorear mis patrones de uso, optimizar mi consumo e incluso vender energía excedente a otros.",
   },
   {
     user: "Emily Davis",
     company: "Synergy Systems",
     image: user6,
-    text: "Highly recommend SolarGauge for anyone looking to optimize their energy usage. The platform is incredibly intuitive, providing detailed insights into energy consumption and available solar energy.",
+    text: "Recomiendo altamente SolarGauge para cualquiera que busque optimizar su uso de energía. La plataforma es increíblemente intuitiva, proporcionando información detallada sobre el consumo de energía y la energía solar disponible.",
   },
 ];
 
 export const features = [
   {
     icon: <BotMessageSquare />,
-    text: "Real-Time Monitoring",
+    text: "Monitoreo en Tiempo Real",
     description:
-      "Track your energy consumption and generation in real-time with our intuitive dashboard",
+      "Rastrea tu consumo y generación de energía en tiempo real con nuestro panel intuitivo",
   },
   {
     icon: <Fingerprint />,
-    text: "Peer-to-Peer Market",
+    text: "Mercado Peer-to-Peer",
     description:
-      "Engage in a community-driven energy market to buy and sell energy with peers.",
+      "Participa en un mercado energético impulsado por la comunidad para comprar y vender energía con tus pares.",
   },
   {
     icon: <ShieldHalf />,
-    text: "Future Projections",
+    text: "Proyecciones Futuras",
     description:
-      "Use our tools to project future energy consumption and production accurately.",
+      "Usa nuestras herramientas para proyectar con precisión el consumo y la producción de energía futuros.",
   },
   {
     icon: <BatteryCharging />,
-    text: "Energy Storage",
+    text: "Almacenamiento de Energía",
     description:
       "Gestiona el estado de tu batería, consulta el historial y carga datos para un análisis energético completo.",
   },
   {
     icon: <PlugZap />,
-    text: "Cost Projections",
+    text: "Proyecciones de Costos",
     description:
-      "Get detailed projections of your energy costs to plan your budget effectively.",
+      "Obtén proyecciones detalladas de tus costos de energía para planificar tu presupuesto de manera efectiva.",
   },
   {
     icon: <GlobeLock />,
-    text: "Customer Insights",
+    text: "Información del Cliente",
     description:
-      "Analyze energy purchases, customer satisfaction, and user interaction with the platform.",
+      "Analiza las compras de energía, la satisfacción del cliente y la interacción del usuario con la plataforma.",
   },
 ];
 
 export const checklistItems = [
   {
-    title: "Sell Your Excess Energy",
+    title: "Vende tu Energía Excedente",
     description:
-      "Easily manage energy sales, track how much you’ve sold, and view earnings.",
+      "Gestiona fácilmente las ventas de energía, rastrea cuánto has vendido y visualiza tus ganancias.",
   },
   {
-    title: "Order Management",
+    title: "Gestión de Pedidos",
     description:
-      "Organize and review your energy orders easily to ensure timely and accurate delivery.",
+      "Organiza y revisa fácilmente tus pedidos de energía para asegurar una entrega puntual y precisa.",
   },
   {
-    title: "Advanced Forecasting",
+    title: "Pronósticos Avanzados",
     description:
-      "Plan ahead with smart predictions for energy usage and solar generation based on past data.",
+      "Planifica con predicciones inteligentes para el uso de energía y la generación solar basadas en datos pasados.",
   },
   {
-    title: "Customer Satisfaction Tracking",
+    title: "Seguimiento de Satisfacción del Cliente",
     description:
-      "Keep a pulse on customer feedback and engagement for a better user experience for future sells.",
+      "Mantén un pulso sobre la retroalimentación y la interacción del cliente para mejorar la experiencia del usuario en futuras ventas.",
   },
 ];
 
 export const pricingOptions = [
   {
-    title: "Free",
+    title: "Gratis",
     price: "$0",
     features: [
-      "Basic Energy Monitoring",
-      "Energy Overview",
-      "Energy Storage Status",
-      "Basic Customer Insights",
-      "Community Marketplace Access",
-      "Monthly Energy Report",
+      "Monitoreo Básico de Energía",
+      "Resumen de Energía",
+      "Estado de Almacenamiento de Energía",
+      "Información Básica del Cliente",
+      "Acceso al Mercado Comunitario",
+      "Informe Mensual de Energía",
     ],
   },
   {
     title: "Pro",
     price: "$10",
     features: [
-      "Free plan stuff",
-      "Detailed Energy Analytics",
-      "Order Management System",
-      "Market Analytics Dashboard",
-      "Customer Satisfaction Tracking",
-      "Weekly Energy Reports",
+      "Lo que incluye el plan gratis",
+      "Análisis Detallado de Energía",
+      "Sistema de Gestión de Pedidos",
+      "Panel de Análisis de Mercado",
+      "Seguimiento de Satisfacción del Cliente",
+      "Informes Semanales de Energía",
     ],
   },
 ];
 
 export const resourcesLinks = [
-  { href: "#", text: "Documentation" },
-  { href: "#", text: "Tutorials" },
-  { href: "#", text: "API Reference" },
+  { href: "#", text: "Documentación" },
+  { href: "#", text: "Tutoriales" },
+  { href: "#", text: "Referencia de API" },
 ];
 
 export const platformLinks = [
-  { href: "#", text: "Supported Devices" },
-  { href: "#", text: "System Requirements" },
-  { href: "#", text: "Release Notes" },
+  { href: "#", text: "Dispositivos Compatibles" },
+  { href: "#", text: "Requisitos del Sistema" },
+  { href: "#", text: "Notas de la Versión" },
 ];
 
 export const communityLinks = [
-  { href: "#", text: "Events" },
-  { href: "#", text: "Meetups" },
-  { href: "#", text: "Conferences" },
+  { href: "#", text: "Eventos" },
+  { href: "#", text: "Encuentros" },
+  { href: "#", text: "Conferencias" },
 ];

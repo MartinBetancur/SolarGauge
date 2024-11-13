@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom"; // Importa Navigate para redirección
+import { Route, Routes, Navigate } from "react-router-dom"; 
 import { useState } from "react";
 import { UserProvider } from "./UserContext";
 
@@ -35,70 +35,75 @@ function App() {
     setUserId(id); // Guardamos el ID del usuario al iniciar sesión
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUserId(null); // Limpiamos el ID del usuario
+  };
+
   return (
     <UserProvider>
-    <Routes>
-      {/* Ruta para la Landing Page */}
-      <Route
-        path="/"
-        element={
-          <>
-            <Navbar />
-            <div className="max-w-7xl mx-auto pt-20 px-6">
-              <HeroSection />
-              <FeatureSection />
-              <Workflow />
-              <Pricing />
-              <Testimonials />
-              <Footer />
-            </div>
-          </>
-        }
-      />
-
-      {/* Rutas de Autenticación */}
-      <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-      <Route path="/register" element={<RegisterPage />} />
-
-      {/* Rutas del Dashboard (protegidas) */}
-      {isAuthenticated ? (
+      <Routes>
+        {/* Ruta para la Landing Page */}
         <Route
-          path="*"
+          path="/"
           element={
-            <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
-              {/* Fondo */}
-              <div className="fixed inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-80" />
-                <div className="absolute inset-0 backdrop-blur-sm" />
+            <>
+              <Navbar />
+              <div className="max-w-7xl mx-auto pt-20 px-6">
+                <HeroSection />
+                <FeatureSection />
+                <Workflow />
+                <Pricing />
+                <Testimonials />
+                <Footer />
               </div>
-
-              {/* Sidebar */}
-              <Sidebar userId={userId} />
-
-              {/* Contenido principal del Dashboard */}
-              <div className="relative z-10 flex-1 p-6 overflow-y-auto">
-                <Routes>
-                  {/* Rutas del Dashboard */}
-                  <Route path="/:id" element={<OverviewPage userId={userId} />} />
-                  <Route path="/predictive-model/:id" element={<AvailablePage userId={userId} />} />
-                  <Route path="/market/:id" element={<SalesPage userId={userId} />} />
-                  <Route path="/orders" element={<OrdersPage userId={userId} />} />
-                  <Route path="/analytics" element={<AnalyticsPage userId={userId} />} />
-                  <Route path="/users" element={<UsersPage userId={userId} />} />
-                  <Route path="/settings" element={<SettingsPage userId={userId} />} />
-                  <Route path='/stored' element={<StoredPage/>} />
-
-                  {/* Redirección por defecto al /overview si la ruta no coincide */}
-                  <Route path="*" element={<Navigate to="/overview" />} />
-                </Routes>
-              </div>
-            </div>
+            </>
           }
         />
-      ) : (
-        <Route path="*" element={<Navigate to="/login" />} />
-      )}
-    </Routes>
+
+        {/* Rutas de Autenticación */}
+        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Rutas del Dashboard (protegidas) */}
+        {isAuthenticated ? (
+          <Route
+            path="*"
+            element={
+              <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
+                {/* Fondo */}
+                <div className="fixed inset-0 z-0">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-80" />
+                  <div className="absolute inset-0 backdrop-blur-sm" />
+                </div>
+
+                {/* Sidebar */}
+                <Sidebar userId={userId} onLogout={handleLogout} />
+
+                {/* Contenido principal del Dashboard */}
+                <div className="relative z-10 flex-1 p-6 overflow-y-auto">
+                  <Routes>
+                    {/* Rutas del Dashboard */}
+                    <Route path="/:id" element={<OverviewPage userId={userId} />} />
+                    <Route path="/predictive-model/:id" element={<AvailablePage userId={userId} />} />
+                    <Route path="/market/:id" element={<SalesPage userId={userId} />} />
+                    <Route path="/orders" element={<OrdersPage userId={userId} />} />
+                    <Route path="/analytics" element={<AnalyticsPage userId={userId} />} />
+                    <Route path="/users" element={<UsersPage userId={userId} />} />
+                    <Route path="/settings" element={<SettingsPage userId={userId} />} />
+                    <Route path='/stored' element={<StoredPage />} />
+
+                    {/* Redirección por defecto al /overview si la ruta no coincide */}
+                    <Route path="*" element={<Navigate to="/overview" />} />
+                  </Routes>
+                </div>
+              </div>
+            }
+          />
+        ) : (
+          <Route path="*" element={<Navigate to="/login" />} />
+        )}
+      </Routes>
     </UserProvider>
   );
 }
