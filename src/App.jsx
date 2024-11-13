@@ -79,8 +79,8 @@ function App() {
                 <Routes>
                   {/* Rutas del Dashboard */}
                   <Route path="/:id" element={<OverviewPage userId={userId} />} />
-                  <Route path="/available" element={<AvailablePage userId={userId} />} />
-                  <Route path="/sales/:id" element={<SalesPage userId={userId} />} />
+                  <Route path="/predictive-model/:id" element={<AvailablePage userId={userId} />} />
+                  <Route path="/market/:id" element={<SalesPage userId={userId} />} />
                   <Route path="/orders" element={<OrdersPage userId={userId} />} />
                   <Route path="/analytics" element={<AnalyticsPage userId={userId} />} />
                   <Route path="/users" element={<UsersPage userId={userId} />} />

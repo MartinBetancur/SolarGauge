@@ -78,7 +78,7 @@ const AvailablePage = () => {
 
   return (
     <div className='flex-1 overflow-auto relative z-10'>
-      <Header title='Energy Available' />
+      <Header title='Predicciones según registros' />
 
       <main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
         <div className="space-y-8 mb-8">

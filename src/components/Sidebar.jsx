@@ -14,10 +14,10 @@ const Sidebar = () => {
 			name:"Dashboard", icon:BarChart2, color:"#6366f1", href:`/${userId}`
 		},
 		{
-			name:"Modelo Predictivo", icon:Zap, color:"#6366f1", href:"/available"
+			name:"Modelo Predictivo", icon:Zap, color:"#6366f1", href:`/predictive-model/${userId}`
 		},
 		{
-			name:"Mercado Energético", icon:TrendingUp, color:"#FF9800", href: `/sales/${userId}`
+			name:"Mercado Energético", icon:TrendingUp, color:"#FF9800", href: `/market/${userId}`
 		},
 		{
 			name:"Energy Orders", icon:ShoppingCart, color:"#FF7289", href:"/orders"
