@@ -21,6 +21,7 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import SettingsPage from "./pages/SettingsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import StoredPage from "./pages/StoredPage";
 
 // Importa la Sidebar
 import Sidebar from "./components/Sidebar";

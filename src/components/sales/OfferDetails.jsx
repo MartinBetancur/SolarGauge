@@ -1,45 +1,62 @@
 // OfferDetails.jsx
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 
-const OfferDetails = ({ offer, onClose, apiUrl }) => {
-    const [offerDetails, setOfferDetails] = useState(null);
-
-    useEffect(() => {
-        const fetchOfferDetails = async () => {
-            if (offer) {
-                try {
-                    const response = await axios.get(`${apiUrl}/api/v1/offers/offers/${offer.id}`);
-                    setOfferDetails(response.data);
-                } catch (error) {
-                    console.error("Error fetching offer details:", error);
-                }
+const OfferDetails = ({ offer, onClose, apiUrl, userId }) => {
+    const handleAction = async (action) => {
+        try {
+            if (action === "accept") {
+                // Llamada POST para aceptar la oferta y crear una venta
+                const response = await axios.post(`${apiUrl}/api/v1/sales`, {
+                    offer_id: offer.id,
+                    status: "pending", // Estado inicial de la venta
+                    penalty_reason: "", // Campo opcional o ajustable si es necesario
+                    buyer_id: userId // ID del usuario actual
+                });
+                console.log(`Oferta aceptada con éxito:`, response.data);
+                alert(`Oferta aceptada con éxito.`);
+            } else {
+                // Llamada PUT para otros estados de la oferta (activar, cancelar, etc.)
+                const response = await axios.put(`${apiUrl}/api/v1/offers/${offer.id}/${action}`);
+                console.log(`Oferta ${action} con éxito:`, response.data);
+                alert(`Oferta ${action} con éxito.`);
             }
-        };
-
-        fetchOfferDetails();
-    }, [offer, apiUrl]);
-
-    if (!offerDetails) return null;
+        } catch (error) {
+            console.error(`Error al ${action} la oferta:`, error);
+            alert(`Error al ${action} la oferta.`);
+        }
+    };
 
     return (
-        <div className="p-6 bg-gray-900 text-white rounded-lg shadow-lg">
+        <div className="p-6 bg-gray-800 text-white rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold mb-4">Detalles de la Oferta</h3>
+            <p><strong>Tipo de Oferta:</strong> {offer.offer_type === "buy" ? "Compra" : "Venta"}</p>
+            <p><strong>Energía:</strong> {offer.energy_amount} kWh</p>
+            <p><strong>Precio por Unidad:</strong> ${offer.price_per_unit}</p>
+            <p><strong>Expira:</strong> {new Date(offer.expiration_time).toLocaleDateString()}</p>
+            <p><strong>Estado:</strong> {offer.status}</p>
+
+            <div className="mt-4 flex space-x-2">
+                <button
+                    onClick={() => handleAction("activate")}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Activar
+                </button>
+                <button
+                    onClick={() => handleAction("accept")}
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Aceptar
+                </button>
+            </div>
+
             <button
                 onClick={onClose}
-                className="text-sm text-gray-400 hover:text-white mb-4"
+                className="mt-4 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
             >
                 Cerrar
             </button>
-
-            <h2 className="text-2xl font-bold mb-2">
-                {offerDetails.offer_type === "buy" ? "Oferta de Compra" : "Oferta de Venta"}
-            </h2>
-            <p className="text-lg">Energia: {offerDetails.energy_amount} kWh</p>
-            <p className="text-lg">Precio por Unidad: ${offerDetails.price_per_unit}</p>
-            <p className="text-lg">Expira: {new Date(offerDetails.expiration_time).toLocaleDateString()}</p>
-            <p className="text-lg">Condiciones: {offerDetails.terms_conditions}</p>
-            <p className="text-lg">Estado: {offerDetails.status}</p>
-            <p className="text-lg">Creado en: {new Date(offerDetails.created_at).toLocaleDateString()}</p>
         </div>
     );
 };

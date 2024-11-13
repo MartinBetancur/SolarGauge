@@ -21,11 +21,15 @@ const StoredPage = () => {
   });
   const [selectedTimeRange, setSelectedTimeRange] = useState("1d");
   const [displayInPercentage, setDisplayInPercentage] = useState(true);
+  const apiUrl = import.meta.env.VITE_BATTERY_SERIVCE_URI;
+
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/battery/history?delta=${selectedTimeRange}`);
+        await fetch(`${apiUrl}/battery/load`, {method: "POST"});
+        const response = await fetch(`${apiUrl}/battery/history?delta=${selectedTimeRange}`);
         const result = await response.json();
 
         const transformedData = result.map((entry) => ({
@@ -42,7 +46,7 @@ const StoredPage = () => {
 
     const fetchCurrentStats = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/battery/current");
+        const response = await fetch(`${apiUrl}/battery/current`);
         const result = await response.json();
 
         setCurrentStats({

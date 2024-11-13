@@ -17,23 +17,23 @@ const Sidebar = () => {
 			name:"Modelo Predictivo", icon:Zap, color:"#6366f1", href:`/predictive-model/${userId}`
 		},
 		{
-			name: "Energy Stored", icon: BatteryCharging, color: "#4CAF50", href: "/stored"
-		},
-		{
 			name:"Mercado Energético", icon:TrendingUp, color:"#FF9800", href: `/market/${userId}`
 		},
 		{
-			name:"Energy Orders", icon:ShoppingCart, color:"#FF7289", href:"/orders"
+			name: "Energía Almacenada", icon: BatteryCharging, color: "#4CAF50", href: "/stored"
 		},
-		{
-			name:"Market Analysis", icon:BarChart, color:"#673AB7", href:"/analytics" 
-		},
-		{
-			name:"Users", icon:Users, color:"#EC4899", href:"/users"
-		},
-		{
-			name:"Settings", icon:Settings, color:"#9E9E9E", href:"/settings" 
-		},
+		// {
+		// 	name:"Energy Orders", icon:ShoppingCart, color:"#FF7289", href:"/orders"
+		// },
+		// {
+		// 	name:"Market Analysis", icon:BarChart, color:"#673AB7", href:"/analytics" 
+		// },
+		// {
+		// 	name:"Users", icon:Users, color:"#EC4899", href:"/users"
+		// },
+		// {
+		// 	name:"Settings", icon:Settings, color:"#9E9E9E", href:"/settings" 
+		// },
 	
 	]
 
