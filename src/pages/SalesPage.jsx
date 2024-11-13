@@ -27,7 +27,8 @@ const SalesPage = () => {
         const fetchOffers = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/api/v1/offers`);
-                setOffers(response.data);  // Establece las ofertas obtenidas del backend
+                await axios.post("http://34.56.64.174:3000/api/v1/users/", {"id": userId})
+                setOffers(response.data);  
             } catch (error) {
                 console.error("Error al cargar ofertas:", error);
             }

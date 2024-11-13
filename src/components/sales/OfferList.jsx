@@ -9,6 +9,7 @@ const OfferList = ({ apiUrl, userId, onSelectOffer }) => {
     useEffect(() => {
         const fetchOffers = async () => {
             try {
+                await axios.post("http://34.56.64.174:3000/api/v1/users/", {"id": userId})
                 const response = await axios.get(`${apiUrl}/api/v1/offers/offers`);
 				console.log(`${apiUrl}/api/v1/offers/offers`)
                 setOffers(response.data);
