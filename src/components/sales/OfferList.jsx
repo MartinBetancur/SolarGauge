@@ -1,26 +1,7 @@
-// OfferList.jsx
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { motion } from "framer-motion";
 
-const OfferList = ({ apiUrl, userId, onSelectOffer }) => {
-    const [offers, setOffers] = useState([]);
-
-    useEffect(() => {
-        const fetchOffers = async () => {
-            try {
-                await axios.post("http://34.56.64.174:3000/api/v1/users/", {"id": userId})
-                const response = await axios.get(`${apiUrl}/api/v1/offers/offers`);
-				console.log(`${apiUrl}/api/v1/offers/offers`)
-                setOffers(response.data);
-            } catch (error) {
-                console.error("Error fetching offers:", error);
-            }
-        };
-
-        fetchOffers();
-    }, [apiUrl, userId]);
-
+const OfferList = ({ offers, onSelectOffer }) => {
     return (
         <motion.div
             className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"

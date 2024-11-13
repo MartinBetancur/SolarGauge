@@ -1,23 +1,6 @@
-// SalesList.jsx
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 
-const SalesList = ({ apiUrl, onSelectSale }) => {
-    const [sales, setSales] = useState([]);
-
-    useEffect(() => {
-        const fetchSales = async () => {
-            try {
-                const response = await axios.get(`${apiUrl}/api/v1/sales/sales`);
-                setSales(response.data);
-            } catch (error) {
-                console.error("Error fetching sales:", error);
-            }
-        };
-
-        fetchSales();
-    }, [apiUrl]);
-
+const SalesList = ({ sales, onSelectSale }) => {
     return (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {sales.map((sale) => (
