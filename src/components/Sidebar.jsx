@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart, Settings, TrendingUp, Users, Zap, Menu, BarChart2, ShoppingCart } from 'lucide-react'
+import { BarChart, Settings, TrendingUp, Users, Zap, Menu, BarChart2, ShoppingCart, BatteryCharging } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,9 @@ const SIDEBAR_ITEMS = [
     {
         name:"Modelo Predictivo", icon:Zap, color:"#6366f1", href:"/available"
     },
+	{
+		name: "Energy Stored", icon: BatteryCharging, color: "#4CAF50", href: "/stored"
+	},
     {
         name:"Mercado Energético", icon:TrendingUp, color:"#FF9800", href:"/sales"
     },
