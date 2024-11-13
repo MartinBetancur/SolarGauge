@@ -85,6 +85,7 @@ function App() {
                   <Route path="/analytics" element={<AnalyticsPage userId={userId} />} />
                   <Route path="/users" element={<UsersPage userId={userId} />} />
                   <Route path="/settings" element={<SettingsPage userId={userId} />} />
+                  <Route path='/stored' element={<StoredPage/>} />
 
                   {/* Redirección por defecto al /overview si la ruta no coincide */}
                   <Route path="*" element={<Navigate to="/overview" />} />
